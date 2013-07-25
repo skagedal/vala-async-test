@@ -1,0 +1,26 @@
+The result of make async-server:
+
+valac -o async-server async-server.vala async-interface.vala --target-glib=2.36 --pkg gio-2.0
+async-server.vala:23.13-23.42: warning: unhandled error `GLib.IOError'
+	var conn = Bus.get_sync (BusType.SESSION);
+	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+async-server.vala:24.2-24.60: warning: unhandled error `GLib.IOError'
+	conn.register_object ("/org/example/test", new TestImpl ());
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+async-server.vala:27.23-28.98: warning: unhandled error `GLib.Error'
+async-server.vala:33.2-33.127: warning: unhandled error `GLib.SpawnError'
+	Process.spawn_async (null, { "async-client", "/dbus/async/client" }, null, SpawnFlags.DO_NOT_REAP_CHILD, null, out client_pid);
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/simon/projects/async-test/async-server.vala.c: In function ‘test_impl_async_test_test_interface_interface_init’:
+/home/simon/projects/async-test/async-server.vala.c:231:21: warning: assignment from incompatible pointer type [enabled by default]
+/home/simon/projects/async-test/async-server.vala.c: In function ‘_dbus_test_impl_test_string’:
+/home/simon/projects/async-test/async-server.vala.c:263:72: error: ‘_dbus_test_impl_test_string_ready’ undeclared (first use in this function)
+/home/simon/projects/async-test/async-server.vala.c:263:72: note: each undeclared identifier is reported only once for each function it appears in
+/home/simon/projects/async-test/async-server.vala.c:263:2: warning: passing argument 1 of ‘async_test_test_interface_test_string’ from incompatible pointer type [enabled by default]
+/home/simon/projects/async-test/async-server.vala.c:85:6: note: expected ‘struct AsyncTestTestInterface *’ but argument is of type ‘struct TestImpl *’
+/home/simon/projects/async-test/async-server.vala.c: In function ‘_dbus_async_test_test_interface_test_string_ready’:
+/home/simon/projects/async-test/async-server.vala.c:277:2: warning: passing argument 1 of ‘async_test_test_interface_test_string_finish’ from incompatible pointer type [enabled by default]
+/home/simon/projects/async-test/async-server.vala.c:86:8: note: expected ‘struct AsyncTestTestInterface *’ but argument is of type ‘struct TestImpl *’
+error: cc exited with status 256
+Compilation failed: 1 error(s), 4 warning(s)
+make: *** [async-server] Error 1
