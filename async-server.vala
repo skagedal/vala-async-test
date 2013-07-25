@@ -1,18 +1,6 @@
 
 [DBus (name = "org.example.Test")]
-class TestImpl : Object, AsyncTest.Test {
-	public async void test_void () {
-		Idle.add (test_void.callback);
-		yield;
-	}
-
-	public async int test_int (int i, out int j) {
-		assert (i == 42);
-		Idle.add (test_int.callback);
-		yield;
-		j = 23;
-		return 11;
-	}
+class TestImpl : Object, AsyncTest.TestInterface {
 
 	public async string test_string (string s, out string t) {
 		assert (s == "hello");
@@ -21,27 +9,6 @@ class TestImpl : Object, AsyncTest.Test {
 		t = "world";
 		return "vala";
 	}
-	
-	public async Foo test_foo (string s) {
-		assert (s == "hello");
-		Idle.add (test_foo.callback);
-		yield;
-		Foo foo = Foo();
-		foo.bar = s;
-		return foo;
-	}
-
-	public async Foo[] test_foos (string s) {
-		assert (s == "hello");
-		Idle.add (test_foos.callback);
-		yield;
-		var foos = new Foo[0];
-		Foo foo = Foo();
-		foo.bar = s;
-		foos += foo;
-		return foos;
-	}
-
 }
 
 MainLoop main_loop;
